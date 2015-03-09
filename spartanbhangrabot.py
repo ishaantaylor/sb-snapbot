@@ -1,12 +1,12 @@
 from argparse 				import ArgumentParser
-from snapchat_bots 			import SnapchatBot
+from snapchat_bots 			import SnapchatBot, Snap
 from threading 				import Thread
 from random 				import randint
 from snapchat_bots.utils 	import save_snap
 
 import time
 
-members = ['ishaant']
+members = ['ishaant', 'nickpilla', 'boshi90', 'mtessie', 'rishabhhhhh', 'nsatpute', 'hgopal', 'nutmeg25', 'browniemedusa', 'teenytinyk', 'raghavtrip', 'bananers780']
 friends = []
 
 class SpartanBhangraBot(SnapchatBot):
@@ -41,7 +41,8 @@ class SpartanBhangraBot(SnapchatBot):
 
 	def on_friend_add(self, friend):
 		print("Friend %s tryna add me", friend)
-		self.delayaddfriend(friend)
+		if friend in members:
+			self.delayaddfriend(friend)
 
 	def on_friend_delete(self, friend):
 		self.delete_friend(friend)	

@@ -6,8 +6,10 @@ from snapchat_bots.utils 	import save_snap
 
 import time
 
-members = ['ishaant', 'nickpilla', 'boshi90', 'mtessie', 'rishabhhhhh', 'nsatpute', 'hgopal', 'nutmeg25', 'browniemedusa', 'teenytinyk', 'raghavtrip', 'bananers780']
-friends = []
+
+def getDelimitedArray(file):
+	with open(file) as f:
+		return [line.rstrip('\n') for line in f]
 
 class SpartanBhangraBot(SnapchatBot):
 
@@ -17,31 +19,28 @@ class SpartanBhangraBot(SnapchatBot):
 		self.mark_viewed(snap)
 
 	def delaypoststory(self, snap):
-		t = randint(10, 15)
+		t = randint(8, 10)
 		time.sleep(t)
 		self.post_story(snap)
 
 	def delayaddfriend(self, friend):
-		print("thread got message to" + "add friend")
-		t = randint(3, 10)
+		t = randint(2, 3)
 		time.sleep(t)
 		self.add_friend(friend)
 		self.send_snap(friend, Snap.from_file("res/sb.png"))
 
 	## Important listeners
 	def on_snap(self, sender, snap):
-		print(members)
 		save_snap(snap, 'snaps/' + str(sender))
-		print(sender)
-		if sender in members:
+		if sender in getDelimitedArray('members.txt'):
 			print(sender)
-			self.send_snap(sender, snap)
 			self.delaypoststory(snap)
+			self.send_snap(sender, snap)
 			self.delaymarkviewed(snap)
 
 	def on_friend_add(self, friend):
 		print("Friend %s tryna add me", friend)
-		if friend in members:
+		if friend in getDelimitedArray('audience.txt'):
 			self.delayaddfriend(friend)
 
 	def on_friend_delete(self, friend):

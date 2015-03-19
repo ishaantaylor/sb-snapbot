@@ -2,7 +2,6 @@ from argparse 				import ArgumentParser
 from snapchat_bots 			import SnapchatBot, Snap
 from threading 				import Thread
 from random 				import randint
-from snapchat_bots.utils 	import save_snap
 
 import time
 
@@ -11,8 +10,9 @@ def getDelimitedArray(file):
 	with open(file) as f:
 		return [line.rstrip('\n') for line in f]
 
-class SpartanBhangraBot(SnapchatBot):
+class Agregator(SnapchatBot):
 
+	# helper methods to delay these actions
 	def delaymarkviewed(self, snap):
 		t = randint(10, 30)
 		time.sleep(t)
@@ -31,7 +31,7 @@ class SpartanBhangraBot(SnapchatBot):
 
 	## Important listeners
 	def on_snap(self, sender, snap):
-		save_snap(snap, 'snaps/' + str(sender))
+		snap.save(dir_name='snaps/' + str(sender))
 		if sender in getDelimitedArray('members.txt'):
 			print(sender)
 			self.delaypoststory(snap)
@@ -40,7 +40,7 @@ class SpartanBhangraBot(SnapchatBot):
 
 	def on_friend_add(self, friend):
 		print("Friend %s tryna add me", friend)
-		if friend in getDelimitedArray('audience.txt'):
+		if friend in getDelimitedArray('audience.txt') or friend in getDelimitedArray('members.txt'):
 			self.delayaddfriend(friend)
 
 	def on_friend_delete(self, friend):
@@ -48,10 +48,11 @@ class SpartanBhangraBot(SnapchatBot):
 
 
 if __name__ == '__main__':
-	parser = ArgumentParser("Spartan Bhangra")
+	# accepts command line arguments `python spartanbhangrabot.py -u username -p password`
+	parser = ArgumentParser("Agregator")
 	parser.add_argument('-u', '--username', required=True, type=str)
 	parser.add_argument('-p', '--password', required=True, type=str)
 	args = parser.parse_args()
 
-	bot = SpartanBhangraBot(args.username, args.password)
-	bot.listen()
+	bot = Agregator(args.username, args.password)
+	bot.listen(60)

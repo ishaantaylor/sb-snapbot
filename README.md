@@ -1,5 +1,5 @@
 # sb-snapbot
-Snapchat Bot using agermanidis/SnapchatBot for Spartan Bhangra, my Bhangra team, that aggregates the members' snaps.
+Snapchat Bot using agermanidis/SnapchatBot for Spartan Bhangra, my Bhangra team, that aggregates the members' snaps and displays them to the public.
 
 ## The Aggregator Bot has the following functionality:
 

@@ -9,3 +9,4 @@ Snapchat Bot using agermanidis/SnapchatBot for Spartan Bhangra, my Bhangra team,
 - Saves snaps in specified folder `snaps/<username>`
 
 
+### Update: I got a cease and desist from Snapchat :(
